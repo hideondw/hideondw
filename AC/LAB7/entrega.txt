@@ -1,0 +1,94 @@
+1.
+Cache Directa:
+StepA = 10000/8 = 1250
+StepB = 10000/2 = 5000
+StepC = 10000
+StepD = 10000
+Cache 2-asociativa:
+StepA = 10000/16 = 625
+StepB = 10000/4 = 2500
+StepC = 10000/2 = 5000
+StepD = 10000
+2.
+Step = 1  -> 1250
+Step = 2  -> 2500
+Step = 3  -> 3750 ? aprox
+Step = 4  -> 5000
+Step = 5  -> 6250 ? aprox
+Step = 6  -> 7500 ? aprox
+Step = 7  -> 8750 ? aprox
+Step = 8  -> 10000
+Step = 9  -> 10000
+Step = 10 -> 10000
+Step = 11 -> 10000
+Step = 12 -> 10000
+Step = 13 -> 10000
+Step = 14 -> 10000
+Step = 15 -> 10000
+Step = 16 -> 10000
+3.
+Cache Directa:
+limite = 16  -> 2
+limite = 32  -> 4
+limite = 40  -> 16(5 fallos primera i cada 5 hay 2)
+limite = 48  -> 24(6fallos primera i cada 6 hay 4)
+limite = 64  -> 32
+limite = 128 -> 32
+Cache 2-asociativa:
+limite = 16  -> 2
+limite = 32  -> 4
+limite = 40  -> 5+3+3+3+3+3+1 = 21
+limite = 48  -> 32
+limite = 64  -> 32
+limite = 128 -> 32
+Cache 4-asociativa:
+limite = 16  -> 2
+limite = 32  -> 4
+limite = 40  -> 32
+limite = 48  -> 32
+limite = 64  -> 32
+limite = 128 -> 32
+
+4. 64 lineas
+limite = 512  -> 16
+limite = 1024 -> 32
+limite = 1536 -> 48
+limite = 2048 -> 64
+limite = 2560 -> 256048 pega un salto guapo
+limite = 3072 -> 
+limite = 3584 -> 
+limite = 4096 -> 1024000
+limite = 4608 -> 1024000
+limite = 5120 -> 1024000
+limite = 5632 -> 1024000
+limite = 6144 -> 1024000
+limite = 6656 -> 1024000
+limite = 7168 -> 1024000
+limite = 7680 -> 1024000
+limite = 8192 -> 1024000
+5.
+384 lineas totales
+a.
+96 por conjunto
+limite = 1 -> 1
+limite = 2 -> 2
+limite = 3 -> 3
+limite = 4 -> 4
+limite = 5 -> 256000
+limite = 6 -> 256000
+A partir del 5 siempre 256000 fallos
+b.
+64 lineas por conjunto
+limite = 1 -> 1
+limite = 2 -> 2
+limite = 3 -> 3
+limite = 4 -> 4
+limite = 5 -> 5
+limite = 6 -> 6
+limite = 7 -> 256000
+A partir del 7 siempre 256000 
+
+La relacion existente es que una vez la variable limite supere el grado de asociatividad, los fallos
+pasaran a ser de simplemente el numero de la variable limite al maximo de fallos permitidos
+en este caso 256000. Es decir, si no superamos el grado de asociatividad tendremos pocos fallos, en caso contrario
+muchos

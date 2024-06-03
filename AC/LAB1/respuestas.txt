@@ -1,0 +1,40 @@
+1. Inlining significa que en compilar-se el codi es remplaçara la trucada a funcions
+pel cos d'aquestes.
+2. Si afeigim l'opcio -finline-functions totes les funcions patiran inlining, també 
+existeix l'opcio -finline-small-functions que s'encarregaria de nomes les funcions simples.
+Ambdues estan activades en utilitzar l'opcio -O2. L'opcio -finline-limit n ens permet 
+establir el tamany maxim(n) de pseudo instruccions que poden tenir les funcions de les
+que volem fer inlining.
+
+3
+
+4.Instrucciones Estaticas: 5
+  Instrucciones Dinamicas: 5000000
+  MIPS: 500
+  IPC: 0,3571428
+  CPI: 2,8
+  FREQUENCIA: 1,4 GHz
+5.Instrucciones Estaticas: 4
+  Instrucciones Dinamicas: 4000000
+  MIPS: 800
+  CPI: 1,75
+  FREQUENCIA: 1,4 GHz
+  SPEEDUP: 2
+  La frecuencia del procesador siempre es la misma y por lo tanto no cambia pese 
+  a optimizar la compilacion. Lo que si que cambia es el numero de instrucciones y con ello
+  el tiempo de ejecucion, en reducirse el tiempo de ejecucion y dividir el numero de instrucciones que tambien se reduce,
+  augmenta el MIPS. En cambio los CPI disminuyen  ya que tanto instrucciones como ciclos han disminuido.
+6. Si se ejecuta al instante seria 200/(200-10) = 1,053. En cambio, si comparamos con el caso -O,
+ el resultado seria un Speedup del (200-5)/(200-10) = 1,026 mas rapido -O que -O0.
+7.
+8. AMB CASOS EXTREMS:
+   -MEDIA ARITMETICA: 7,4 ms
+   -MEDIA GEOMETRICA: 6,081 ms
+   SENSE CASOS EXTREMS:
+   -MEDIA ARITMETICA: 7,33 ms
+   -MEDIA GEOMETRICA: 6,84 ms
+
+Al quitar los casos extremos podemos observar como la media aritmetica apenas varia 
+pero en cambio la geometrica augmenta. Pese a ello, si comparamos ambos casos, en quitar los casos
+extremos la diferencia entre la media aritmetica i geometrica se reduce en apenas 0,5 ms cuando 
+antes era de 1,4 ms aprox

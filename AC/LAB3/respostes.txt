@@ -1,0 +1,101 @@
+1.
+    xorl %eax, %eax;     //i = 0
+    xorl %ebx, %ebx;     //suma = 0
+    movl Matriu, %ecx;
+    movl $10, %edx;      //N = 10;
+bucle:
+    cmpl %edx, %eax;
+    jge end;
+    imul $3, %edx, %esi;
+    addl %eax, %esi;
+    addl (%ecx, %esi, 4), %ebx;
+    incl %eax;
+    jmp bucle;
+end:
+
+2.
+    xorl %eax, %eax;     //i = 0
+    xorl %ebx, %ebx;     //suma = 0
+    movl Matriu, %ecx;
+    movl $10, %edx;      //N = 10;
+bucle:
+    cmpl %edx, %eax;
+    jge end;
+    addl 20(%ecx,%eax,4), %ebx;
+    incl %eax;
+    jmp bucle;
+end:
+
+la aleatoria 76 la secuencial 56
+
+
+3.
+    xorl %edx, %edx;         //i = 0
+    xorl %ebx, %ebx;         //j = 0
+    movl ResFila, %ecx;     //ResFila[0]
+    movl Matriu, %esi;      //Matriu[0][0]
+    movl $1, (%ecx);
+for:
+    cmpl $10, %edx;          // i < N
+    jge end;
+    cmpl $0, (%esi);         //Matriu[i][j] != 0
+    je fiwhile;
+    cmpl $100, (%esi);       //Matriu[i][j] == M
+    jne else;
+    movl (%esi), %edi        
+    imul %edi, (%ecx);      //ResFila[i] *= Matriu[i][j] 
+else:
+    incl %ebx;               //++j
+    addl $4, %esi;           //Mueves el puntero del vector;
+fiwhile:
+    imul $4, %ebx, %ebx;    //j*4 para saber cuanto le hemos sumado a %esi
+    subl %ebx, %esi;         //Se lo restamos para estar en la posicion Matriu[i][0]
+    xorl %ebx, %ebx;         //j = 0
+    addl $40, %esi;          //Sumas 40 para si estabas en la posicion i = 0 ahora estas en i = 1
+    addl $4, %ecx;           //Mueves 1 posicion el vector ResFila
+    movl $1, (%ecx)          //ResFila[i] = 1
+    jmp for;
+end:
+
+
+
+Practica:
+1.
+    movl 8(%ebp), %eax;     
+    movl $1, %ebx;           
+for:
+    cmpl 12(%ebp), %ebx;    
+    jge end;
+	movl (%eax, %ebx, 4), %ecx;
+    cmpl -4(%ebp),%ecx; 
+    jge endif;
+    movl %ecx, -4(%ebp); 
+endif:
+    incl %ebx;
+    jmp for;
+end:
+
+2.
+
+    movl $0, -4(%ebp);
+    movl 8(%ebp), %eax;
+    xorl %ebx, %ebx;
+for1:
+    cmpl $3, %ebx;
+    jge endfor1;
+    xorl %ecx, %ecx;
+for2:
+    cmpl $3, %ecx;
+    jge endfor2;
+    imul $3, %ebx, %edx;
+    addl %ebx, %edx;
+    movl (%eax, %edx, 4), %edx;
+    addl %ecx, %edx;
+    subl %edx, -4(%ebp)
+    incl %ecx;
+    jmp for2;
+endfor2:
+    addl 12(%ebp), %ebx;
+    jmp for1;
+endfor1:
+

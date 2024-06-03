@@ -1,0 +1,77 @@
+1.
+32 bytes por linea
+Hay un total de 128 lineas
+
+
+10f92150    10  87C90A  0A  10F92   MISS
+10f92151    11  87C90A  0A  10F92   HIT
+10f8a192    12  87C50C  0C  10F8A   MISS
+10f92153    13  87C90A  0A  10F92   HIT
+10f8b195    15  87C58C  0C  10F8B   MISS    10F8A
+10f8b195    15  87C58C  0C  10F8B   HIT
+10f93156    16  87C98A  0A  10F93   MISS    10F92
+10f92157    17  87C90A  0A  10F92   MISS    10F93
+10f8a198    18  87C50C  0C  10F8A   MISS    10F8B
+10f93159    19  87C98A  0A  10F93   MISS    10F92
+12f92250    10  97C912  12  12F92   MISS
+10f92151    11  87C90A  0A  10F92   MISS    10F93
+10f8a192    12  87C50C  0C  10F8A   HIT
+12f92253    13  97C912  12  12F92   HIT
+10f8b195    15  87C58C  0C  10F8B   MISS    10F8A
+10f8b195    15  87C58C  0C  10F8B   HIT
+10f93156    16  87C98A  0A  10F93   MISS    10F92
+12f92257    17  97C912  12  12F92   HIT
+10f8a298    18  87C514  14  10F8A   MISS
+10f93159    19  87C98A  0A  10F93   HIT
+
+2.
+Si habian 128 lineas ahora hay 64 lineas en la via 1 y otras 64 en la via 2
+Siguen habiendo 32 bytes por linea
+CONJ MC sera representado con 6 bits que nos dan posibilidad de acceso a 64 lineas
+
+
+10f92150    10  87C90A  0A  0   21F24   MISS
+10f92151    11  87C90A  0A  1   21F24   MISS
+10f8a192    12  87C50C  0C  0   21F14   MISS
+10f92153    13  87C90A  0A  1   21F24   HIT
+10f8b195    15  87C58C  0C  1   21F16   MISS
+10f8b195    15  87C58C  0C  1   21F16   HIT
+10f93156    16  87C98A  0A  0   21F26   MISS    21F24
+10f92157    17  87C90A  0A  1   21F24   HIT
+10f8a198    18  87C50C  0C  0   21F14   HIT
+10f93159    19  87C98A  0A  1   21F26   MISS    21F24
+12f92250    10  97C912  12  0   25F24   MISS
+10f92151    11  87C90A  0A  1   21F24   MISS    21F26
+10f8a192    12  87C50C  0C  0   21F14   HIT   
+12f92253    13  97C912  12  1   25F24   MISS
+10f8b195    15  87C58C  0C  1   21F16   HIT
+10f8b195    15  87C58C  0C  1   21F16   HIT
+10f93156    16  87C98A  0A  0   21F26   HIT   
+12f92257    17  97C912  12  1   25F24   HIT   
+10f8a298    18  87C514  14  0   21F14   MISS
+10f93159    19  87C98A  0A  1   21F26   MISS    21F24
+
+3.
+fallos = 128 lineas*10 = 1280 fallos.
+Esto pasa porque cada vez que accedemos 
+a la 1a direccion de una linea tenemos un fallo, 
+cada linea tiene 32 bytes = 4 int.
+Entonces 32*128 = 4096 = tamaño de un int vec[1024].
+Aciertos= 31*128*10 = 39680 aciertos
+Esto pasa ya que la primera vez que entramos en una linea hay 1 fallo,
+los 31 bytes siguientes que contiene se guardan bien entonces cada 1024 ints
+aciertos = 128*31. Como hay 10, 128*31*10
+
+4.
+fallos = 1280 fallos
+Empezamos en direccion par y vamos saltando direccion par asi que no cambia nada
+aciertos = 39680 aciertos
+
+5.
+fallos = 20.000
+aciertos = 60.000
+6.
+Al ser 2 vectores diferentes vector utiliza la via 0 y vector2 la via 1 entonces no hay tantos fallos.
+Es fan 10.000 accesos, realment 20.000 ya que hi ha 2 vectors.
+fallos = 20.000*4/32 = 2500 fallos
+aciertos = 80.000-2500 = 77500 encerts

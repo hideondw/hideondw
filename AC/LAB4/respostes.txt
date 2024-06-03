@@ -1,0 +1,48 @@
+1. Argc contiene el numero total de argumentos que se le pasa al main, empezando a contar desde el ./ejecutable argumento1 argumento2 ...
+El argv en cambio contiene la string de cada argumento, tiene tamaño argc i podemos consultar el contenido entre las posiciones 0 y argc-1
+2. La funcion atoi sirve para pasar los char a int. "1234" -> 1234
+
+
+
+6.
+
+    pushl %ebp
+    movl %esp, %ebp
+    subl $4, %esp
+    pushl %ebx;
+
+    movb 8(%ebp), %bl
+    movl -4(%ebp), %eax 
+    cmpb %bl, 20(%ebp)
+    jne else
+    xor %eax, %eax
+    jmp end
+else:
+    movl 16(%ebp), %eax
+    movl (%eax), %eax
+end:
+    addl 12(%ebp), %eax
+    pop %ebx
+    movl %ebp, %esp
+    pop %ebp
+    ret
+
+7.
+
+    pushl %ebp
+    push %ebx
+    movl %esp, %ebp
+    pushb 8(%ebp)
+    pushl 16(%ebp)
+    pushl 12(%ebp)
+    pushb 8(%ebp)
+    call SencillaSub
+    addl $16, %esp
+    movl 16(%ebp), %ebx //ebx = *m
+    movl %eax, (%ebx)   //*m=%eax
+    movl 12(%ebp), %eax
+
+    pop %ebx
+    movl %ebp, %esp
+    pop %ebp  
+    ret

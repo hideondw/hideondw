@@ -1,0 +1,127 @@
+1.
+psubb:
+Se utiliza para realizar la resta de dos registros SIMD de 64 o 128 bits 
+o bien de un registro SIMD con un contenido en memoria. Admite registros SIMD
+MMX(64 bits) i XMM(128 bits)
+
+pcmpgtb:
+
+Se utiliza para comparar byte a byte cual de los bytes de los operandos es mayor. Pone todo a 1 
+ese byte si es mayor o a 0 si es menor, y asi con los 16 bytes de los xmm. Els operands poden ser 
+tan registres MMX, com XMM com 1 registre i una direccio de memoria.
+
+
+movdqa:
+Se utiliza para mover el contenido de un registro SIMD a otro o
+bien para mover el contenido de un registro SIMD a una direccion de memoria i viceversa.
+El dq nos indica que mueve double quadwords, es decir, registros SIMD XMM(128 bits).
+La a nos indica aligned, que garantiza alineacion a 16 bytes(direcciones multiples de 16)
+
+movdqu:
+Mismas funcionalidades i caracteristicas que movdqa pero no requiere alineacion.
+
+emms:
+Se utiliza para limpiar el estado de MMX i no tiene operandos.
+
+2.
+__attribute__:
+Permite agregar atributos adicionales a las declaraciones de funciones, variables o tipos de datos.
+algined(n):
+Nos permite especificar el alineamiento deseado n para una variable o tipos de datos.
+
+3.
+    
+    
+    
+    push %ebp
+    movl %esp, %ebp
+    addl $-8, %esp
+
+    push %ebx
+    push %esi
+
+	movl 8(%ebp), %eax      #mata
+    movl 12(%ebp), %ebx     #matb
+    movl 16(%ebp), %ecx     #matc
+    movl 20(%ebp), %esi     #n
+
+    imul %esi, %esi
+    addl %ecx, %esi
+
+for:
+    cmpl %esi, %ecx
+    jge fi
+
+    movb (%eax), %dl
+    subb (%ebx), %dl
+    cmpb $0, %dl
+    jle else
+    movb $255, (%ecx)
+    jmp fi_if
+
+else:
+    movb $0, (%ecx)
+
+fi_if:
+    incl %eax
+    incl %ebx
+    incl %ecx
+
+    jmp for
+fi:
+    pop %ebx
+    pop %esi
+    movl %ebp, %esp
+    pop %ebp
+    ret
+
+4.
+No se pueden cargar literales directamente con movdqu, 
+antes habria que cargarlos en memoria y despues recoger el valor en el registro %xmm0 x ejemplo.
+
+5.
+    push %ebp
+    movl %esp, %ebp
+    addl $-8, %esp
+
+    push %ebx
+    push %esi
+
+    movl 8(%ebp), %eax      #mata
+    movl 12(%ebp), %ebx     #matb
+    movl 16(%ebp), %ecx     #matc
+    movl 20(%ebp), %esi     #n
+
+    imul %esi, %esi
+    addl %ecx, %esi
+
+for:
+    cmpl %esi, %ecx
+    jge fi
+
+    movdqu (%eax), %xmm0
+    movdqu (%ebx), %xmm1
+
+    pcmpgtb %xmm1, %xmm0    #mirar si esta bien hacer solo la comparacion i no restar
+
+    movdqu %xmm0, (%ecx)
+
+    addl $16, %eax
+    addl $16, %ebx
+    addl $16, %ecx
+
+    jmp for
+fi:
+    pop %ebx
+    pop %esi
+    movl %ebp, %esp
+    pop %ebp
+    ret
+
+6.
+    movl $16, %ebx
+    idivl %ebx  #siempre divide %eax/el registro que pongamos en la Instruccion y guarda el 
+                #resultado en %eax y el resto en %edx
+
+    cmpl $0, %edx
+    jne no_multiple

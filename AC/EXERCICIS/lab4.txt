@@ -1,0 +1,95 @@
+18.
+    pushl %ebp                          
+    movl %esp, %ebp         
+    movl 8(%ebp), %eax                  # %eax = i
+    movl 12(%ebp), %ecx                 # %ecx = j
+    sall $2, %ecx                       # %ecx = j*4
+    leal (,%eax,8), %edx                # %edx = i*8
+    subl %eax, %edx                     # %edx = i*7
+    leal (%eax, %eax, 4), %eax          # %eax = 5*i
+    movl mat2(%ecx, %eax, 4), %eax      # %eax = mat2+j*4+(5*i)*4
+    addl mat1(%ecx, %edx, 4), %eax      # %eax = mat1 + j*4 + (8*i)*4
+    movl %ebp, %esp
+    popl %ebp
+    ret
+
+a. N = 8 i M = 5
+b. 13 instrucciones estaticas
+c. 13 instrucciones dinamicas
+d. 9 accesos
+e. Ctotales = 4/0.8 + 9/0.5 = 23 cicles
+f. CtotalesMejorado = 4/0.9 + 9/0.6 = 19,44 cicles
+Speedup = 23/19.44 = 1.18 vegades més rapid.
+
+19.
+c.
+    movl 12(%ebp), %eax
+    movl (%eax), %eax
+    addl -4(%ebp), %eax
+    movl %ebp, %esp
+    pop %ebp
+    ret
+
+d.
+    pushl 16(%ebp)
+    movl -44(%ebp), %eax
+    movl 8(%ebp), %ecx
+    imul $40, %eax
+    addl %eax, %ecx
+    pushl %ecx
+    call F
+    sub $8, %esp
+    movl %eax, -40(%ebp)
+
+e.
+    movl -44(%ebp), %eax
+    imul 16(%ebp), %eax
+    movl %eax, -48(%ebp)
+
+f.
+    movb -13(%ebp), %al
+    movl -48(%ebp), %ebx
+    movb %al, -36(%ebp,%ebx)
+
+g.
+    xor %esi, %esi #esi = i
+
+for:
+    cmpl 16(%ebp), %esi
+    jge end
+    movl 8(%ebp), %ebx
+    movl 4000(%ebx), %ebx
+    cmpl %ebx, %esi
+    jge end
+    movl 8(%ebp), %ebx
+    imul $40, %esi, %edx
+    movl 3996(%ebx, %edx), %eax
+    incl %eax
+    movl %eax, 3960(%ebx, %edx)
+    addl $5, %esi
+    jmp for
+end:
+
+h.
+if:
+    movl 16(%ebp), %eax
+    cmpl %eax, -40(%ebp)
+    je else
+    movl -48(%ebp), %eax
+    movl %eax, -4(%ebp)
+    jmp end
+else:
+    movl -44(%ebp), %eax
+    movl %eax, -4(%ebp)
+end:
+
+i.
+
+    xor %esi, %esi
+while:
+    cmpb $'.', -36(%ebp, %esi)
+    je end
+    movb $'#', -36(%ebp, %esi)
+    incl %esi
+    jmp while
+end:

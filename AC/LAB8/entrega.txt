@@ -1,0 +1,122 @@
+1.
+ijk:
+A de izquierda a derecha
+B de arriba a abajo
+jki:
+C de arriba a abajo
+A de arriba a abajo
+B de arriba a abajo
+kij:
+C de izquierda a derecha
+A de arriba a abajo
+B de izquierda a derecha
+
+2.
+ijk:
+
+N = 256
+
+A: 16
+B: 256
+C: 1
+
+N = 512
+
+A: 32
+B: 512
+C: 1
+
+N = 1024
+
+A: 64
+B: 1024
+C: 1
+
+jki:
+N = 256
+A: 256
+B: 1
+C: 256
+N = 512
+A: 512
+B: 1
+C: 512
+N = 1024
+A: 1024
+B: 1
+C: 1024
+
+kij:
+N = 256
+A: 1
+B: 16
+C: 16
+N = 512
+A: 1
+B: 32
+C: 32
+N = 1024
+A: 1
+B: 64
+C: 64
+
+3.
+ijk:
+
+N = 256
+
+A: 
+B: 
+C: 
+
+N = 512
+
+A: 
+B: 
+C: 
+
+N = 1024
+
+A: 
+B: 
+C: 
+
+jki:
+
+N = 256
+
+A: 
+B: 
+C: 
+
+N = 512
+
+A: 
+B: 
+C: 
+
+N = 1024
+
+A: 
+B: 
+C: 
+
+kij:
+
+N = 256
+
+A: 
+B: 
+C: 
+
+N = 512
+
+A: 
+B: 
+C: 
+
+N = 1024
+
+A: 
+B: 
+C: 
